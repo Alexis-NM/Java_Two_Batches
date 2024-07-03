@@ -11,6 +11,8 @@ import java.util.Properties;
  */
 public class MainRename {
     public static void main(String[] args) {
+        String propFilePath = System.getProperty("propfile");
+
         Properties properties = new Properties();
         // Charge les propriétés à partir du fichier de configuration
         try (InputStream input = new FileInputStream("config_rename.properties")) {
@@ -26,6 +28,11 @@ public class MainRename {
         System.out.println("Suffixe : " + renameMe.getSuffix());
 
         // Démarre le processus de renommage dans le répertoire spécifié
-        renameMe.renameAll("/Users/alexis/Desktop/JAVA_ANGULAR/Devoir001/test_files");
+        String directoryPath = "/Users/alexis/Desktop/JAVA_ANGULAR/Java_Two_Batches/Devoir001/test_files";
+        renameMe.renameAll(directoryPath);
+
+        // Annuler le renommage des fichiers
+        renameMe.undoRenameAll(directoryPath);
+
     }
 }

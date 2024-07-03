@@ -61,6 +61,35 @@ public class RenameMe {
                         if (!file.renameTo(newFile)) {
                             System.out.println("Failed to rename: " + file.getName());
                         }
+                        else {
+                            System.out.println("Renamed " + file.getName() + " to " + newName);
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("The provided path is not a directory.");
+        }
+    }
+    public void undoRenameAll(String directoryPath) {
+        File directory = new File(directoryPath);
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        String baseName = FilenameUtils.getBaseName(file.getName());
+                        String extension = FilenameUtils.getExtension(file.getName());
+                        if (baseName.startsWith(prefix) && baseName.endsWith(suffix)) {
+                            String originalName = baseName.substring(prefix.length(), baseName.length() - suffix.length());
+                            String newName = originalName + "." + extension;
+                            File newFile = new File(directory, newName);
+                            if (!file.renameTo(newFile)) {
+                                System.out.println("Failed to rename: " + file.getName());
+                            } else {
+                                System.out.println("Renamed " + file.getName() + " to " + newName);
+                            }
+                        }
                     }
                 }
             }
